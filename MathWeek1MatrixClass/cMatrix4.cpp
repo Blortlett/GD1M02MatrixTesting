@@ -74,19 +74,57 @@ void Matrix4::Add(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 
 void Matrix4::Subtract(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 {
+	int matrix1Value;
+	int matrix2Value;
+	int result;
 
+	// loop through array positions for both arays
+	for (int xIndex = 1; xIndex < 5; ++xIndex) {
+		for (int yIndex = 1; yIndex < 5; ++yIndex) {
+			matrix1Value = _rA.GetElement(xIndex, yIndex);
+			matrix2Value = _rB.GetElement(xIndex, yIndex);
+			result = matrix1Value - matrix2Value;
+			// Set position equal to sum of same positions in matrix 1&2
+			_rResult.SetElement(xIndex, yIndex, result);
+		}
+	}
 }
 
 void Matrix4::Multiply(float _fScalar, const Matrix4& _rA, Matrix4& _rResult)
 {
+	int matrixPosValue;
+	int result;
+
+	// loop through array positions for both arays
+	for (int xIndex = 1; xIndex < 5; ++xIndex) {
+		for (int yIndex = 1; yIndex < 5; ++yIndex) {
+			matrixPosValue = _rA.GetElement(xIndex, yIndex);
+			result = matrixPosValue * _fScalar;
+			// Set position equal to sum of same positions in matrix 1&2
+			_rResult.SetElement(xIndex, yIndex, result);
+		}
+	}
 }
 
 void Matrix4::Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 {
+	// Loop through each row of _rA
+	for (int i = 0; i < 4; ++i) {
+		// Loop through each column of _rB
+		for (int j = 0; j < 4; ++j) {
+			_rResult.SetElement(i, j, 0.0f); // Make sure result starts off as 0
+
+			// Perform the dot product of row i from _rA with column j from _rB
+			for (int k = 0; k < 4; ++k) {
+				_rResult.SetElement(i, j, (_rA.GetElement(i, k) * _rB.GetElement(k,j)));
+			}
+		}
+	}
 }
 
 void Matrix4::Transpose(const Matrix4& _rA, Matrix4& _rResult)
 {
+
 }
 
 float Matrix4::Determinant(const Matrix4& _rA)
