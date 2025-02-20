@@ -18,6 +18,9 @@ int main()
 
 	RandomizeMatrix(&Matrix);
 	PrintMatrix(&Matrix);
+	Matrix.Identity(Matrix);
+	PrintMatrix(&Matrix);
+
 
 	return 0;
 }
