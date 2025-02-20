@@ -12,17 +12,16 @@ float Matrix4::GetElement(int _iX, int _iY) const
 
 void Matrix4::Identity(Matrix4& _rResult)
 {
-	// Loop through matrix and set diagonal to 1 rest to 0
-	for (int xIndex = 1; xIndex < 5; ++xIndex) {
-		for (int yIndex = 1; yIndex < 5; ++yIndex) {
-			if (xIndex == yIndex) {
-				_rResult.SetElement(xIndex, yIndex, 1);
-			}
-			else {
-				_rResult.SetElement(xIndex, yIndex, 0);
-			}
-		}
-	}
+    // Loop through matrix and set diagonal to 1, rest to 0
+    for (int xIndex = 1; xIndex < 5; ++xIndex) {
+        for (int yIndex = 1; yIndex < 5; ++yIndex) {
+            if (xIndex == yIndex) {
+                _rResult.SetElement(xIndex, yIndex, 1);
+            } else {
+                _rResult.SetElement(xIndex, yIndex, 0);
+            }
+        }
+    }
 }
 
 void Matrix4::Zero(Matrix4& _rResult)
