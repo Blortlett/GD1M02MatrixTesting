@@ -162,7 +162,6 @@ float Matrix4::Determinant3x3(float m[3][3]) {
 		- m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
 		+ m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
 }
-
 bool Matrix4::Inverse(const Matrix4& _rA, Matrix4& _rResult)
 {
 	float det = Determinant(_rA);
@@ -205,7 +204,6 @@ bool Matrix4::Inverse(const Matrix4& _rA, Matrix4& _rResult)
 
 	return true;
 }
-
 bool Matrix4::TestHarness()
 {
 	return false;

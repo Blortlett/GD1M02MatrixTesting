@@ -17,6 +17,7 @@ int main()
 	int iTestsPassed = 0;
 
 	PerformIdentityTestScenarios(iTestsPerformed, iTestsPassed);
+	PerformZeroTestScenarios(iTestsPerformed, iTestsPassed);
 	
 
 	cout << "Tests Performed: " << iTestsPerformed << endl;
