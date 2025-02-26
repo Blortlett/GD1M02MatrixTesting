@@ -5,6 +5,7 @@ using namespace std;
 class Matrix4 {
 private:
     float m_fMatrix[4][4];
+    static const int MAX_RAND_NUMBER = 19;
 
 public:
     // 0 based index.
@@ -16,12 +17,19 @@ public:
     static void Zero(Matrix4& _rResult);
     static bool Equals(const Matrix4& _rA, const Matrix4& _rB);
     
+    // Math Functions
     static void Add(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult);
     static void Subtract(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult);
     static void Multiply(float _fScalar, const Matrix4& _rA, Matrix4& _rResult);
     static void Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult);
     static void Transpose(const Matrix4& _rA, Matrix4& _rResult);
     static float Determinant(const Matrix4& _rA);
+    static float Determinant3x3(float m[3][3]);
     static bool Inverse(const Matrix4& _rA, Matrix4& _rResult);
     static bool TestHarness();
+
+    // Helper Functions
+    void PrintMatrix();
+    void RandomizeMatrix();
+    int RandomInt();
 };

@@ -123,20 +123,122 @@ void Matrix4::Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult
 
 void Matrix4::Transpose(const Matrix4& _rA, Matrix4& _rResult)
 {
-
+	// loop through array positions for both arays
+	for (int xIndex = 1; xIndex < 5; ++xIndex) {
+		for (int yIndex = 1; yIndex < 5; ++yIndex) {
+			_rResult.SetElement(xIndex, yIndex, _rA.GetElement(yIndex, xIndex));
+		}
+	}
 }
 
 float Matrix4::Determinant(const Matrix4& _rA)
 {
-	return 0.0f;
+	float det = 0.0f;
+
+	for (int col = 0; col < 4; ++col) {
+		// Extract 3x3 minor
+		float minor[3][3];
+		int minorRow = 0;
+		for (int i = 1; i < 4; ++i) { // Skip row 0
+			int minorCol = 0;
+			for (int j = 0; j < 4; ++j) {
+				if (j == col) continue; // Skip current column
+				minor[minorRow][minorCol] = _rA.m_fMatrix[i][j];
+				++minorCol;
+			}
+			++minorRow;
+		}
+
+		// Compute cofactor
+		float cofactor = ((col % 2 == 0) ? 1 : -1) * _rA.m_fMatrix[0][col] * Determinant3x3(minor);
+		det += cofactor;
+	}
+
+	return det;
+}
+
+// return 3x3 grid for determinant function to work with
+float Matrix4::Determinant3x3(float m[3][3]) {
+	return m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
+		- m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
+		+ m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
 }
 
 bool Matrix4::Inverse(const Matrix4& _rA, Matrix4& _rResult)
 {
-	return false;
+	float det = Determinant(_rA);
+	if (det == 0.0f) {
+		return false; // Not invertible
+	}
+
+	float invDet = 1.0f / det;
+	float cofactors[4][4];
+
+	// Compute cofactors
+	for (int row = 0; row < 4; ++row) {
+		for (int col = 0; col < 4; ++col) {
+			// Compute 3x3 minor
+			float minor[3][3];
+			int minorRow = 0;
+			for (int i = 0; i < 4; ++i) {
+				if (i == row) continue; // Skip current row
+				int minorCol = 0;
+				for (int j = 0; j < 4; ++j) {
+					if (j == col) continue; // Skip current column
+					minor[minorRow][minorCol] = _rA.m_fMatrix[i][j];
+					++minorCol;
+				}
+				++minorRow;
+			}
+
+			// Compute cofactor
+			float cofactor = ((row + col) % 2 == 0 ? 1 : -1) * Determinant3x3(minor);
+			cofactors[row][col] = cofactor;
+		}
+	}
+
+	// Compute adjugate (transpose of cofactor matrix)
+	for (int row = 0; row < 4; ++row) {
+		for (int col = 0; col < 4; ++col) {
+			_rResult.m_fMatrix[row][col] = cofactors[col][row] * invDet;
+		}
+	}
+
+	return true;
 }
 
 bool Matrix4::TestHarness()
 {
 	return false;
+}
+
+
+
+
+
+// Helper Functions
+void Matrix4::PrintMatrix() {
+	for (int xIndex = 0; xIndex < 4; ++xIndex) {
+		for (int yIndex = 0; yIndex < 4; ++yIndex) {
+			float value = GetElement(xIndex, yIndex);
+			cout << (value < 0 ? " " : "  ") << value;
+		}
+		cout << endl;
+	}
+}
+
+void Matrix4::RandomizeMatrix() {
+	// Loop through matrix and assign random number
+	int randNumber;
+
+	for (int xIndex = 1; xIndex < 5; ++xIndex) {
+		for (int yIndex = 1; yIndex < 5; ++yIndex) {
+			int randNumber = RandomInt();
+			SetElement(xIndex, yIndex, randNumber);
+		}
+	}
+}
+
+int Matrix4::RandomInt() {
+	return (std::rand() % MAX_RAND_NUMBER) - 9;
 }
