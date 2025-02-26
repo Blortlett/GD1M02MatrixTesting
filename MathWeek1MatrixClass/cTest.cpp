@@ -29,20 +29,18 @@ bool TestIdentity(int& _riTestsPerformed, int& _riTestsPassed, Matrix4& _Matrix)
 }
 
 // Preforming Tests
-
 void PerformIdentityTestScenarios(int& _riTestsPerformed , int& _riTestsPassed)
 {
-    cout << "Perform Identity Test Scenarios:" << endl;
+    cout << "Perform Identity Test Scenarios: \n" << endl;
+
 
     // Test Case: Identity on a Non-Zero Matrix
     Matrix4 testMatrix;
-    testMatrix.SetElement(0, 0, 5);
-    testMatrix.SetElement(1, 2, -3);
-    testMatrix.SetElement(3, 3, 9);
-
+    testMatrix.PrintMatrix();
+    testMatrix.RandomizeMatrix();
     testMatrix.PrintMatrix();
 
-    testMatrix.Identity(testMatrix); // Apply Identity()
+    testMatrix.Identity(testMatrix); // Apply Identity
 
     bool identityValid = true;
     for (int i = 0; i < 4; ++i) {
@@ -56,10 +54,13 @@ void PerformIdentityTestScenarios(int& _riTestsPerformed , int& _riTestsPassed)
 
     if (identityValid) {
         cout << "Identity function correctly resets any matrix to identity. PASSED.\n";
+        _riTestsPassed++;
     }
     else {
         cout << "Identity function failed to reset a non-identity matrix. FAILED.\n";
     }
+
+    _riTestsPerformed++;
 
     cout << "Identity Matrix Tests Completed.\n";
 }

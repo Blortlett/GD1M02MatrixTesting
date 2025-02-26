@@ -157,6 +157,7 @@ float Matrix4::Determinant(const Matrix4& _rA)
 	return det;
 }
 
+
 // return 3x3 grid for determinant function to work with
 float Matrix4::Determinant3x3(float m[3][3]) {
 	return m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
@@ -213,9 +214,6 @@ bool Matrix4::TestHarness()
 }
 
 
-
-
-
 // Helper Functions
 void Matrix4::PrintMatrix() {
 	for (int xIndex = 0; xIndex < 4; ++xIndex) {
@@ -225,14 +223,15 @@ void Matrix4::PrintMatrix() {
 		}
 		cout << endl;
 	}
+		cout << "\n" << endl;
 }
 
 void Matrix4::RandomizeMatrix() {
 	// Loop through matrix and assign random number
 	int randNumber;
 
-	for (int xIndex = 1; xIndex < 5; ++xIndex) {
-		for (int yIndex = 1; yIndex < 5; ++yIndex) {
+	for (int xIndex = 0; xIndex < 4; ++xIndex) {
+		for (int yIndex = 0; yIndex < 4; ++yIndex) {
 			int randNumber = RandomInt();
 			SetElement(xIndex, yIndex, randNumber);
 		}

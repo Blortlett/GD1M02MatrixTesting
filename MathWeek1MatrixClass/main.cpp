@@ -13,12 +13,15 @@ void SeedRandom();
 int main()
 {
 	SeedRandom();
-	int iTestsPreformed = 0;
+	int iTestsPerformed = 0;
 	int iTestsPassed = 0;
 
-	PerformIdentityTestScenarios(iTestsPreformed, iTestsPassed);
+	PerformIdentityTestScenarios(iTestsPerformed, iTestsPassed);
 	
 
+	cout << "Tests Performed: " << iTestsPerformed << endl;
+	cout << "Tests Passed: " << iTestsPassed << endl;
+	cout << "Tests Failed: " << (iTestsPerformed - iTestsPassed) << endl;
 
 	return 0;
 }
