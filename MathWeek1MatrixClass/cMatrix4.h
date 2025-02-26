@@ -8,7 +8,10 @@ private:
     static const int MAX_RAND_NUMBER = 19;
 
 public:
-    // 0 based index.
+    // Constructor
+    Matrix4() : m_fMatrix{0} {}
+
+    // 0-based index gets and sets
     void SetElement(int _iX, int _iY, float _fValue);
     float GetElement(int _iX, int _iY) const;
 

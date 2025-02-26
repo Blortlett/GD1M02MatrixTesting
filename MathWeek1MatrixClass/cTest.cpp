@@ -13,18 +13,21 @@ bool TestIdentity(int& _riTestsPerformed, int& _riTestsPassed, Matrix4& _Matrix)
             if (i == j) {
                 // Diagonal elements should be 1
                 if (_Matrix.GetElement(i, j) != 1) {
+                    _riTestsPerformed++;
                     return false;
                 }
             }
             else {
                 // Off-diagonal elements should be 0
                 if (_Matrix.GetElement(i, j) != 0) {
+                    _riTestsPerformed++;
                     return false;
                 }
             }
         }
     }
-
+    _riTestsPerformed++;
+    _riTestsPassed++;
     return true; // All checks passed, return true
 }
 
@@ -32,35 +35,23 @@ bool TestIdentity(int& _riTestsPerformed, int& _riTestsPassed, Matrix4& _Matrix)
 void PerformIdentityTestScenarios(int& _riTestsPerformed , int& _riTestsPassed)
 {
     cout << "Perform Identity Test Scenarios: \n" << endl;
-
-
-    // Test Case: Identity on a Non-Zero Matrix
+    // Test Case: Identity on a  Matrix
     Matrix4 testMatrix;
+
     testMatrix.PrintMatrix();
     testMatrix.RandomizeMatrix();
     testMatrix.PrintMatrix();
 
-    testMatrix.Identity(testMatrix); // Apply Identity
-
-    bool identityValid = true;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            if ((i == j && testMatrix.GetElement(i, j) != 1) ||
-                (i != j && testMatrix.GetElement(i, j) != 0)) {
-                identityValid = false;
-            }
-        }
-    }
-
+    // Test if Identity function worked correctly
+    bool identityValid = TestIdentity(_riTestsPerformed, _riTestsPassed, testMatrix);
+    testMatrix.PrintMatrix();
+    // Display test results
     if (identityValid) {
-        cout << "Identity function correctly resets any matrix to identity. PASSED.\n";
-        _riTestsPassed++;
+        cout << "Identity function correctly resets any matrix to identity. PASSED." << endl;
     }
     else {
-        cout << "Identity function failed to reset a non-identity matrix. FAILED.\n";
+        cout << "Identity function failed to reset a non-identity matrix. FAILED." << endl;
     }
 
-    _riTestsPerformed++;
-
-    cout << "Identity Matrix Tests Completed.\n";
+    cout << "Identity Matrix Tests Completed.\n" << endl;
 }
