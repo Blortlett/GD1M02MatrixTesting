@@ -108,13 +108,13 @@ void Matrix4::Multiply(float _fScalar, const Matrix4& _rA, Matrix4& _rResult)
 void Matrix4::Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 {
 	// Loop through each row of _rA
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 1; i < 5; ++i) {
 		// Loop through each column of _rB
-		for (int j = 0; j < 4; ++j) {
+		for (int j = 1; j < 5; ++j) {
 			_rResult.SetElement(i, j, 0.0f); // Make sure result starts off as 0
 
 			// Perform the dot product of row i from _rA with column j from _rB
-			for (int k = 0; k < 4; ++k) {
+			for (int k = 1; k < 5; ++k) {
 				_rResult.SetElement(i, j, (_rA.GetElement(i, k) * _rB.GetElement(k,j)));
 			}
 		}
