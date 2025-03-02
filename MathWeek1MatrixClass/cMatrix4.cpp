@@ -214,6 +214,14 @@ Vector4& Matrix4::ScaleNonUniform(float _fScaleX,
 {
 
 }
+static Vector4& Translation(float _fTranslateX,
+	float _fTranslateY,
+	float _fTranslateZ,
+	const Vector4& _rVec,
+	Matrix4& _rResult)
+{
+
+}
 
 
 // Helper Functions
