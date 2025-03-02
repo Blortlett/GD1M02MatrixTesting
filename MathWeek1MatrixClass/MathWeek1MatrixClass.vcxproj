@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="cMatrix4.h" />
     <ClInclude Include="cTest.h" />
+    <ClInclude Include="cVector4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cMatrix4.cpp" />

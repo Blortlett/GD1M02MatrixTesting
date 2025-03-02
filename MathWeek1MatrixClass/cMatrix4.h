@@ -29,7 +29,20 @@ public:
     static float Determinant(const Matrix4& _rA);
     static float Determinant3x3(float m[3][3]);
     static bool Inverse(const Matrix4& _rA, Matrix4& _rResult);
+    static Vector4& ScaleUniform(float _fScale,
+        const Vector4& _rVec,
+        Matrix4& _rResultMat);
+    static Vector4& ScaleNonUniform(float _fScaleX,
+        float _fScaleY,
+        float _fScaleZ,
+        Vector4& _rVec,
+        Matrix4& _rResultMat);
     static bool TestHarness();
+    static Vector4& Translation(float _fTranslateX,
+        float _fTranslateY,
+        float _fTranslateZ,
+        const Vector4& _rVec,
+        Matrix4& _rResult);
 
     // Helper Functions
     void PrintMatrix();

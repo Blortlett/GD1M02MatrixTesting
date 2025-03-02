@@ -1,15 +1,14 @@
 #include "cMatrix4.h"
+#include "cVector4.h"
 
 void Matrix4::SetElement(int _iX, int _iY, float _fValue)
 {
 	m_fMatrix[_iX - 1][_iY - 1] = _fValue;
 }
-
 float Matrix4::GetElement(int _iX, int _iY) const
 {
 	return m_fMatrix[_iX - 1][_iY - 1];
 }
-
 void Matrix4::Identity(Matrix4& _rResult)
 {
     // Loop through matrix and set diagonal to 1, rest to 0
@@ -23,7 +22,6 @@ void Matrix4::Identity(Matrix4& _rResult)
         }
     }
 }
-
 void Matrix4::Zero(Matrix4& _rResult)
 {
 	for (int xIndex = 1; xIndex < 5; ++xIndex) {
@@ -34,7 +32,6 @@ void Matrix4::Zero(Matrix4& _rResult)
 		}
 	}
 }
-
 bool Matrix4::Equals(const Matrix4& _rA, const Matrix4& _rB)
 {
 	int matrix1Value;
@@ -52,7 +49,6 @@ bool Matrix4::Equals(const Matrix4& _rA, const Matrix4& _rB)
 	// if made it here, all should be equal as bro
 	return true;
 }
-
 void Matrix4::Add(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 {
 	int matrix1Value;
@@ -70,7 +66,6 @@ void Matrix4::Add(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 		}
 	}
 }
-
 void Matrix4::Subtract(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 {
 	int matrix1Value;
@@ -88,7 +83,6 @@ void Matrix4::Subtract(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult
 		}
 	}
 }
-
 void Matrix4::Multiply(float _fScalar, const Matrix4& _rA, Matrix4& _rResult)
 {
 	int matrixPosValue;
@@ -104,7 +98,6 @@ void Matrix4::Multiply(float _fScalar, const Matrix4& _rA, Matrix4& _rResult)
 		}
 	}
 }
-
 void Matrix4::Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult)
 {
 	// Loop through each row of _rA
@@ -120,7 +113,6 @@ void Matrix4::Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult
 		}
 	}
 }
-
 void Matrix4::Transpose(const Matrix4& _rA, Matrix4& _rResult)
 {
 	// loop through array positions for both arays
@@ -130,7 +122,6 @@ void Matrix4::Transpose(const Matrix4& _rA, Matrix4& _rResult)
 		}
 	}
 }
-
 float Matrix4::Determinant(const Matrix4& _rA)
 {
 	float det = 0.0f;
@@ -156,7 +147,7 @@ float Matrix4::Determinant(const Matrix4& _rA)
 
 	return det;
 }
-// return 3x3 grid for determinant function to work with
+// return 3x3 grid for determinant function to work with:
 float Matrix4::Determinant3x3(float m[3][3]) {
 	return m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
 		- m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
@@ -207,6 +198,21 @@ bool Matrix4::Inverse(const Matrix4& _rA, Matrix4& _rResult)
 bool Matrix4::TestHarness()
 {
 	return false;
+}
+
+Vector4& Matrix4::ScaleUniform(float _fScale,
+	const Vector4& _rVec,
+	Matrix4& _rResultMat)
+{
+
+}
+Vector4& Matrix4::ScaleNonUniform(float _fScaleX,
+	float _fScaleY,
+	float _fScaleZ,
+	Vector4& _rVec,
+	Matrix4& _rResultMat)
+{
+
 }
 
 
