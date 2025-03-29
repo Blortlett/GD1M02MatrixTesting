@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "cVector4.h"
 using namespace std;
 
 class Matrix4 {
@@ -37,7 +38,6 @@ public:
         float _fScaleZ,
         Vector4& _rVec,
         Matrix4& _rResultMat);
-    static bool TestHarness();
     static Vector4& Translation(float _fTranslateX,
         float _fTranslateY,
         float _fTranslateZ,

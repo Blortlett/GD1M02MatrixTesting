@@ -276,43 +276,440 @@ void PerformZeroTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
 
     cout << "Zero Function Matrix Tests Completed.\n" << endl;
 }
-void PerformAllTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+void PerformEqualsTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
 {
-    cout << "Performing All Matrix Function Tests:\n" << endl;
+    cout << "Perform Equals Function Test Scenarios: \n" << endl;
 
-    Matrix4 m1, m2, result;
-    m1.RandomizeMatrix();
-    m2.RandomizeMatrix();
+    // Test Case 1: Compare two identity matrices
+    cout << "Test Case 1: Two Identity Matrices : \n" << endl;
+    Matrix4 testMatrix1;
+    Matrix4 testMatrix2;
+    testMatrix1.Identity(testMatrix1);
+    testMatrix2.Identity(testMatrix2);
 
-    cout << "Testing Equals:\n";
-    bool equalsPass = TestEquals(_riTestsPerformed, _riTestsPassed, m1, m2);
-    cout << (equalsPass ? "PASSED" : "FAILED") << "\n\n";
+    cout << "Matrix 1:\n";
+    testMatrix1.PrintMatrix();
+    cout << "Matrix 2:\n";
+    testMatrix2.PrintMatrix();
 
-    cout << "Testing Add:\n";
-    bool addPass = TestAdd(_riTestsPerformed, _riTestsPassed, m1, m2, result);
-    cout << (addPass ? "PASSED" : "FAILED") << "\n\n";
+    // Test if Equals function works correctly
+    bool equalsValid = TestEquals(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2);
 
-    cout << "Testing Subtract:\n";
-    bool subPass = TestSubtract(_riTestsPerformed, _riTestsPassed, m1, m2, result);
-    cout << (subPass ? "PASSED" : "FAILED") << "\n\n";
+    // Display test results
+    if (equalsValid) {
+        cout << "Equals function correctly identified two identical identity matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Equals function failed to identify two identical identity matrices. FAILED.\n" << endl;
+    }
 
-    cout << "Testing Scalar Multiply:\n";
-    bool scalarPass = TestScalarMultiply(_riTestsPerformed, _riTestsPassed, 2.0f, m1, result);
-    cout << (scalarPass ? "PASSED" : "FAILED") << "\n\n";
+    // Test Case 2: Compare an identity matrix with a random matrix
+    cout << "Test Case 2: Identity vs Randomized Matrix : \n" << endl;
+    testMatrix1.Identity(testMatrix1);
+    testMatrix2.RandomizeMatrix();
 
-    cout << "Testing Matrix Multiply:\n";
-    bool multPass = TestMatrixMultiply(_riTestsPerformed, _riTestsPassed, m1, m2, result);
-    cout << (multPass ? "PASSED" : "FAILED") << "\n\n";
+    cout << "Matrix 1 (Identity):\n";
+    testMatrix1.PrintMatrix();
+    cout << "Matrix 2 (Random):\n";
+    testMatrix2.PrintMatrix();
 
-    cout << "Testing Transpose:\n";
-    bool transPass = TestTranspose(_riTestsPerformed, _riTestsPassed, m1, result);
-    cout << (transPass ? "PASSED" : "FAILED") << "\n\n";
+    // Test if Equals function works correctly
+    equalsValid = TestEquals(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2);
 
-    cout << "Testing Determinant:\n";
-    bool detPass = TestDeterminant(_riTestsPerformed, _riTestsPassed, m1);
-    cout << (detPass ? "PASSED" : "FAILED") << "\n\n";
+    // Display test results
+    if (!equalsValid) {
+        cout << "Equals function correctly identified different matrices. PASSED.\n" << endl;
+        _riTestsPassed++;
+    }
+    else {
+        cout << "Equals function failed to distinguish different matrices. FAILED.\n" << endl;
+    }
 
-    cout << "Testing Inverse:\n";
-    bool invPass = TestInverse(_riTestsPerformed, _riTestsPassed, m1, result);
-    cout << (invPass ? "PASSED" : "FAILED") << "\n\n";
+    // Test Case 3: Compare two identical random matrices
+    cout << "Test Case 3: Two Identical Random Matrices : \n" << endl;
+    testMatrix1.RandomizeMatrix();
+    // Copy matrix1 to matrix2 to make them identical
+    for (int i = 1; i < 5; ++i) {
+        for (int j = 1; j < 5; ++j) {
+            testMatrix2.SetElement(i, j, testMatrix1.GetElement(i, j));
+        }
+    }
+
+    cout << "Matrix 1 (Random):\n";
+    testMatrix1.PrintMatrix();
+    cout << "Matrix 2 (Copy of Matrix 1):\n";
+    testMatrix2.PrintMatrix();
+
+    // Test if Equals function works correctly
+    equalsValid = TestEquals(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2);
+
+    // Display test results
+    if (equalsValid) {
+        cout << "Equals function correctly identified two identical random matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Equals function failed to identify two identical random matrices. FAILED.\n" << endl;
+    }
+
+    cout << "Equals Matrix Tests Completed.\n" << endl;
+}
+void PerformAddTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Add Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Adding two zero matrices
+    cout << "Test Case 1: Two Zero Matrices : \n" << endl;
+    Matrix4 testMatrix1;
+    Matrix4 testMatrix2;
+    Matrix4 resultMatrix;
+    testMatrix1.Zero(testMatrix1);
+    testMatrix2.Zero(testMatrix2);
+
+    cout << "Matrix 1:\n";
+    testMatrix1.PrintMatrix();
+    cout << "Matrix 2:\n";
+    testMatrix2.PrintMatrix();
+
+    // Test if Add function works correctly
+    bool addValid = TestAdd(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+
+    cout << "Result:\n";
+    resultMatrix.PrintMatrix();
+
+    // Display test results
+    if (addValid) {
+        cout << "Add function correctly added two zero matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Add function failed to correctly add two zero matrices. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Adding an identity matrix and a random matrix
+    cout << "Test Case 2: Identity + Randomized Matrix : \n" << endl;
+    testMatrix1.Identity(testMatrix1);
+    testMatrix2.RandomizeMatrix();
+
+    cout << "Matrix 1 (Identity):\n";
+    testMatrix1.PrintMatrix();
+    cout << "Matrix 2 (Random):\n";
+    testMatrix2.PrintMatrix();
+
+    // Test if Add function works correctly
+    addValid = TestAdd(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+
+    cout << "Result:\n";
+    resultMatrix.PrintMatrix();
+
+    // Display test results
+    if (addValid) {
+        cout << "Add function correctly added identity and random matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Add function failed to correctly add identity and random matrices. FAILED.\n" << endl;
+    }
+
+    // Test Case 3: Adding two identical random matrices
+    cout << "Test Case 3: Two Identical Random Matrices : \n" << endl;
+    testMatrix1.RandomizeMatrix();
+    // Copy matrix1 to matrix2 to make them identical
+    for (int i = 1; i < 5; ++i) {
+        for (int j = 1; j < 5; ++j) {
+            testMatrix2.SetElement(i, j, testMatrix1.GetElement(i, j));
+        }
+    }
+
+    cout << "Matrix 1 (Random):\n";
+    testMatrix1.PrintMatrix();
+    cout << "Matrix 2 (Copy of Matrix 1):\n";
+    testMatrix2.PrintMatrix();
+
+    // Test if Add function works correctly
+    addValid = TestAdd(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+
+    cout << "Result:\n";
+    resultMatrix.PrintMatrix();
+
+    // Display test results
+    if (addValid) {
+        cout << "Add function correctly added two identical random matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Add function failed to correctly add two identical random matrices. FAILED.\n" << endl;
+    }
+
+    cout << "Add Matrix Tests Completed.\n" << endl;
+}
+void PerformSubtractTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Subtract Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Subtracting two zero matrices
+    cout << "Test Case 1: Two Zero Matrices : \n" << endl;
+    Matrix4 testMatrix1, testMatrix2, resultMatrix;
+    testMatrix1.Zero(testMatrix1);
+    testMatrix2.Zero(testMatrix2);
+
+    cout << "Matrix 1:\n"; testMatrix1.PrintMatrix();
+    cout << "Matrix 2:\n"; testMatrix2.PrintMatrix();
+
+    bool subtractValid = TestSubtract(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (subtractValid) {
+        cout << "Subtract function correctly subtracted two zero matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Subtract function failed to subtract two zero matrices. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Subtracting identity from random
+    cout << "Test Case 2: Random - Identity Matrix : \n" << endl;
+    testMatrix1.RandomizeMatrix();
+    testMatrix2.Identity(testMatrix2);
+
+    cout << "Matrix 1 (Random):\n"; testMatrix1.PrintMatrix();
+    cout << "Matrix 2 (Identity):\n"; testMatrix2.PrintMatrix();
+
+    subtractValid = TestSubtract(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (subtractValid) {
+        cout << "Subtract function correctly subtracted identity from random matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Subtract function failed to subtract identity from random matrix. FAILED.\n" << endl;
+    }
+
+    cout << "Subtract Matrix Tests Completed.\n" << endl;
+}
+void PerformScalarMultiplyTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Scalar Multiply Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Multiply identity matrix by 2
+    cout << "Test Case 1: Identity Matrix * 2 : \n" << endl;
+    Matrix4 testMatrix, resultMatrix;
+    float scalar = 2.0f;
+    testMatrix.Identity(testMatrix);
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+    cout << "Scalar: " << scalar << "\n" << endl;
+
+    bool scalarValid = TestScalarMultiply(_riTestsPerformed, _riTestsPassed, scalar, testMatrix, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (scalarValid) {
+        cout << "Scalar multiply correctly scaled identity matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Scalar multiply failed to scale identity matrix. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Multiply random matrix by 0
+    cout << "Test Case 2: Random Matrix * 0 : \n" << endl;
+    scalar = 0.0f;
+    testMatrix.RandomizeMatrix();
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+    cout << "Scalar: " << scalar << "\n" << endl;
+
+    scalarValid = TestScalarMultiply(_riTestsPerformed, _riTestsPassed, scalar, testMatrix, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (scalarValid) {
+        cout << "Scalar multiply correctly zeroed random matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Scalar multiply failed to zero random matrix. FAILED.\n" << endl;
+    }
+
+    cout << "Scalar Multiply Tests Completed.\n" << endl;
+}
+void PerformMatrixMultiplyTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Matrix Multiply Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Identity * Identity
+    cout << "Test Case 1: Identity * Identity : \n" << endl;
+    Matrix4 testMatrix1, testMatrix2, resultMatrix;
+    testMatrix1.Identity(testMatrix1);
+    testMatrix2.Identity(testMatrix2);
+
+    cout << "Matrix 1:\n"; testMatrix1.PrintMatrix();
+    cout << "Matrix 2:\n"; testMatrix2.PrintMatrix();
+
+    bool multiplyValid = TestMatrixMultiply(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (multiplyValid) {
+        cout << "Matrix multiply correctly multiplied two identity matrices. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Matrix multiply failed to multiply two identity matrices. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Random * Identity
+    cout << "Test Case 2: Random * Identity : \n" << endl;
+    testMatrix1.RandomizeMatrix();
+    testMatrix2.Identity(testMatrix2);
+
+    cout << "Matrix 1 (Random):\n"; testMatrix1.PrintMatrix();
+    cout << "Matrix 2 (Identity):\n"; testMatrix2.PrintMatrix();
+
+    multiplyValid = TestMatrixMultiply(_riTestsPerformed, _riTestsPassed, testMatrix1, testMatrix2, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (multiplyValid) {
+        cout << "Matrix multiply correctly multiplied random with identity matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Matrix multiply failed to multiply random with identity matrix. FAILED.\n" << endl;
+    }
+
+    cout << "Matrix Multiply Tests Completed.\n" << endl;
+}
+void PerformTransposeTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Transpose Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Transpose of Identity
+    cout << "Test Case 1: Identity Matrix : \n" << endl;
+    Matrix4 testMatrix, resultMatrix;
+    testMatrix.Identity(testMatrix);
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+
+    bool transposeValid = TestTranspose(_riTestsPerformed, _riTestsPassed, testMatrix, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (transposeValid) {
+        cout << "Transpose correctly transposed identity matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Transpose failed to transpose identity matrix. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Transpose of Random
+    cout << "Test Case 2: Random Matrix : \n" << endl;
+    testMatrix.RandomizeMatrix();
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+
+    transposeValid = TestTranspose(_riTestsPerformed, _riTestsPassed, testMatrix, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (transposeValid) {
+        cout << "Transpose correctly transposed random matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Transpose failed to transpose random matrix. FAILED.\n" << endl;
+    }
+
+    cout << "Transpose Tests Completed.\n" << endl;
+}
+void PerformDeterminantTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Determinant Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Determinant of Identity
+    cout << "Test Case 1: Identity Matrix : \n" << endl;
+    Matrix4 testMatrix;
+    testMatrix.Identity(testMatrix);
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+
+    bool detValid = TestDeterminant(_riTestsPerformed, _riTestsPassed, testMatrix);
+    cout << "Determinant: " << Matrix4::Determinant(testMatrix) << "\n" << endl;
+
+    if (detValid) {
+        cout << "Determinant correctly calculated for identity matrix (should be 1). PASSED.\n" << endl;
+    }
+    else {
+        cout << "Determinant failed for identity matrix. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Determinant of Zero
+    cout << "Test Case 2: Zero Matrix : \n" << endl;
+    testMatrix.Zero(testMatrix);
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+
+    detValid = TestDeterminant(_riTestsPerformed, _riTestsPassed, testMatrix);
+    cout << "Determinant: " << Matrix4::Determinant(testMatrix) << "\n" << endl;
+
+    if (detValid) {
+        cout << "Determinant correctly calculated for zero matrix (should be 0). PASSED.\n" << endl;
+    }
+    else {
+        cout << "Determinant failed for zero matrix. FAILED.\n" << endl;
+    }
+
+    cout << "Determinant Tests Completed.\n" << endl;
+}
+void PerformInverseTestScenarios(int& _riTestsPerformed, int& _riTestsPassed)
+{
+    cout << "Perform Inverse Function Test Scenarios: \n" << endl;
+
+    // Test Case 1: Inverse of Identity
+    cout << "Test Case 1: Identity Matrix : \n" << endl;
+    Matrix4 testMatrix, resultMatrix;
+    testMatrix.Identity(testMatrix);
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+
+    bool inverseValid = TestInverse(_riTestsPerformed, _riTestsPassed, testMatrix, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (inverseValid) {
+        cout << "Inverse correctly calculated for identity matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Inverse failed for identity matrix. FAILED.\n" << endl;
+    }
+
+    // Test Case 2: Inverse of Zero (should fail)
+    cout << "Test Case 2: Zero Matrix : \n" << endl;
+    testMatrix.Zero(testMatrix);
+
+    cout << "Matrix:\n"; testMatrix.PrintMatrix();
+
+    inverseValid = TestInverse(_riTestsPerformed, _riTestsPassed, testMatrix, resultMatrix);
+    cout << "Result:\n"; resultMatrix.PrintMatrix();
+
+    if (!inverseValid) {
+        cout << "Inverse correctly rejected non-invertible zero matrix. PASSED.\n" << endl;
+    }
+    else {
+        cout << "Inverse failed to reject non-invertible zero matrix. FAILED.\n" << endl;
+    }
+
+    cout << "Inverse Tests Completed.\n" << endl;
+}
+
+void RunAllTestScenarios()
+{
+    int totalTestsPerformed = 0;
+    int totalTestsPassed = 0;
+
+    cout << "=== Starting All Matrix4 Test Scenarios ===\n" << endl;
+
+    // Call each test scenario function
+    PerformIdentityTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformZeroTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformEqualsTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformAddTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformSubtractTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformScalarMultiplyTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformMatrixMultiplyTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformTransposeTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformDeterminantTestScenarios(totalTestsPerformed, totalTestsPassed);
+    PerformInverseTestScenarios(totalTestsPerformed, totalTestsPassed);
+
+    // Print summary
+    cout << "=== All Test Scenarios Completed ===\n" << endl;
+    cout << "Total Tests Performed: " << totalTestsPerformed << endl;
+    cout << "Total Tests Passed: " << totalTestsPassed << endl;
+    cout << "Total Tests Failed: " << (totalTestsPerformed - totalTestsPassed) << endl;
+    cout << "Pass Rate: " << (totalTestsPerformed > 0 ? (static_cast<float>(totalTestsPassed) / totalTestsPerformed * 100) : 0)
+        << "%" << endl;
 }

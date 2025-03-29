@@ -156,37 +156,35 @@ float Matrix4::Determinant3x3(float m[3][3]) {
 bool Matrix4::Inverse(const Matrix4& _rA, Matrix4& _rResult)
 {
 	float det = Determinant(_rA);
-	if (det == 0.0f) {
-		return false; // Not invertible
+	if (abs(det) < 0.0001f) { // Add tolerance for near-zero
+		return false;
 	}
 
 	float invDet = 1.0f / det;
 	float cofactors[4][4];
+	_rResult.Zero(_rResult); // Initialize result
 
 	// Compute cofactors
 	for (int row = 0; row < 4; ++row) {
 		for (int col = 0; col < 4; ++col) {
-			// Compute 3x3 minor
 			float minor[3][3];
 			int minorRow = 0;
 			for (int i = 0; i < 4; ++i) {
-				if (i == row) continue; // Skip current row
+				if (i == row) continue;
 				int minorCol = 0;
 				for (int j = 0; j < 4; ++j) {
-					if (j == col) continue; // Skip current column
+					if (j == col) continue;
 					minor[minorRow][minorCol] = _rA.m_fMatrix[i][j];
 					++minorCol;
 				}
 				++minorRow;
 			}
-
-			// Compute cofactor
 			float cofactor = ((row + col) % 2 == 0 ? 1 : -1) * Determinant3x3(minor);
 			cofactors[row][col] = cofactor;
 		}
 	}
 
-	// Compute adjugate (transpose of cofactor matrix)
+	// Compute adjugate and scale
 	for (int row = 0; row < 4; ++row) {
 		for (int col = 0; col < 4; ++col) {
 			_rResult.m_fMatrix[row][col] = cofactors[col][row] * invDet;
@@ -195,16 +193,25 @@ bool Matrix4::Inverse(const Matrix4& _rA, Matrix4& _rResult)
 
 	return true;
 }
-bool Matrix4::TestHarness()
-{
-	return false;
-}
+
 
 Vector4& Matrix4::ScaleUniform(float _fScale,
 	const Vector4& _rVec,
 	Matrix4& _rResultMat)
 {
+	// Set result matrix to identity matrix first
+	Identity(_rResultMat);
 
+	// Set the scaling factors on the diagonal
+	// Since SetElement uses 1-based indexing (subtracts 1 internally),
+	// we use 1,2,3,4 as indices
+	_rResultMat.SetElement(1, 1, _fScale);  // x scale
+	_rResultMat.SetElement(2, 2, _fScale);  // y scale
+	_rResultMat.SetElement(3, 3, _fScale);  // z scale
+	_rResultMat.SetElement(4, 4, 1.0f);     // w remains 1
+
+	// Return the input vector unchanged
+	return const_cast<Vector4&>(_rVec);
 }
 Vector4& Matrix4::ScaleNonUniform(float _fScaleX,
 	float _fScaleY,
@@ -212,15 +219,37 @@ Vector4& Matrix4::ScaleNonUniform(float _fScaleX,
 	Vector4& _rVec,
 	Matrix4& _rResultMat)
 {
+	// Set result matrix to identity matrix first
+	Identity(_rResultMat);
 
+	// Set the individual scaling factors on the diagonal
+	// Using 1-based indexing as per SetElement's convention
+	_rResultMat.SetElement(1, 1, _fScaleX);  // x scale
+	_rResultMat.SetElement(2, 2, _fScaleY);  // y scale
+	_rResultMat.SetElement(3, 3, _fScaleZ);  // z scale
+	_rResultMat.SetElement(4, 4, 1.0f);      // w remains 1
+
+	// Return the input vector unchanged
+	return _rVec;
 }
-static Vector4& Translation(float _fTranslateX,
+Vector4& Matrix4::Translation(float _fTranslateX,
 	float _fTranslateY,
 	float _fTranslateZ,
 	const Vector4& _rVec,
 	Matrix4& _rResult)
 {
+	// Set result matrix to identity matrix first
+	Identity(_rResult);
 
+	// Set the translation values in the last column
+	// Using 1-based indexing as per SetElement's convention
+	_rResult.SetElement(1, 4, _fTranslateX);  // x translation
+	_rResult.SetElement(2, 4, _fTranslateY);  // y translation
+	_rResult.SetElement(3, 4, _fTranslateZ);  // z translation
+	_rResult.SetElement(4, 4, 1.0f);         // w remains 1
+
+	// Return the input vector unchanged
+	return const_cast<Vector4&>(_rVec);
 }
 
 

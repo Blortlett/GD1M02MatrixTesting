@@ -14,4 +14,13 @@ bool TestInverse(int& _riTestsPerformed, int& _riTestsPassed, Matrix4& _Matrix, 
 
 void PerformIdentityTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
 void PerformZeroTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
-void PerformAllTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformEqualsTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformAddTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformSubtractTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformScalarMultiplyTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformMatrixMultiplyTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformTransposeTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformDeterminantTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+void PerformInverseTestScenarios(int& _riTestsPerformed, int& _riTestsPassed);
+
+void RunAllTestScenarios();
