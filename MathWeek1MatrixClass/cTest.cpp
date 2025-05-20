@@ -691,7 +691,7 @@ void RunAllTestScenarios()
     int totalTestsPerformed = 0;
     int totalTestsPassed = 0;
 
-    cout << "=== Starting All Matrix4 Test Scenarios ===\n" << endl;
+    cout << "-= Starting All Matrix4 Test Scenarios =-\n" << endl;
 
     // Call each test scenario function
     PerformIdentityTestScenarios(totalTestsPerformed, totalTestsPassed);
@@ -706,7 +706,7 @@ void RunAllTestScenarios()
     PerformInverseTestScenarios(totalTestsPerformed, totalTestsPassed);
 
     // Print summary
-    cout << "=== All Test Scenarios Completed ===\n" << endl;
+    cout << "-= All Test Scenarios Completed =-\n" << endl;
     cout << "Total Tests Performed: " << totalTestsPerformed << endl;
     cout << "Total Tests Passed: " << totalTestsPassed << endl;
     cout << "Total Tests Failed: " << (totalTestsPerformed - totalTestsPassed) << endl;
