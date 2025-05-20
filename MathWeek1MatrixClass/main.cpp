@@ -17,14 +17,6 @@ int main()
 	int iTestsPassed = 0;
 
 	RunAllTestScenarios();
-	/*PerformIdentityTestScenarios(iTestsPerformed, iTestsPassed);
-	PerformZeroTestScenarios(iTestsPerformed, iTestsPassed);
-	PerformEqualsTestScenarios(iTestsPerformed, iTestsPassed);
-	PerformAddTestScenarios(iTestsPerformed, iTestsPassed);
-
-	cout << "Tests Performed: " << iTestsPerformed << endl;
-	cout << "Tests Passed: " << iTestsPassed << endl;
-	cout << "Tests Failed: " << (iTestsPerformed - iTestsPassed) << endl;*/
 
 	return 0;
 }
