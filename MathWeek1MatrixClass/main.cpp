@@ -1,3 +1,15 @@
+/***********************************************************************
+Bachelor of Software Engineering
+Media Design School
+Auckland
+New Zealand
+(c) [2025] Media Design School
+File Name : [main.cpp]
+Description : [App starts here]
+Author : [Matthew Bartlett, Oliver Noone-Jones]
+Mail : [matthewbartlett@mds.ac.nz]
+**************************************************************************/
+
 // 4x4 Matrix class
 #include "cMatrix4.h"
 // Test Class

@@ -1,3 +1,14 @@
+/***********************************************************************
+Bachelor of Software Engineering
+Media Design School
+Auckland
+New Zealand
+(c) [2025] Media Design School
+File Name : [cMatrix4.h]
+Description : [This class lets me store, use and perform operations on 4x4 Matrices]
+Author : [Matthew Bartlett, Oliver Noone-Jones]
+Mail : [matthewbartlett@mds.ac.nz]
+**************************************************************************/
 #include "cMatrix4.h"
 #include "cVector4.h"
 

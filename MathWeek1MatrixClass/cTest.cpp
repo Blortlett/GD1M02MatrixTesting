@@ -1,3 +1,14 @@
+/***********************************************************************
+Bachelor of Software Engineering
+Media Design School
+Auckland
+New Zealand
+(c) [2025] Media Design School
+File Name : [cTest.cpp]
+Description : [This class is allows me to test all functions and see what works correctly]
+Author : [Matthew Bartlett, Oliver Noone-Jones]
+Mail : [matthewbartlett@mds.ac.nz]
+**************************************************************************/
 #pragma once
 #include "cTest.h"
 #include "cMatrix4.h"
