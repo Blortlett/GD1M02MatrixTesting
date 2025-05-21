@@ -55,7 +55,7 @@ int main()
 	std::cout << "Matrix A:" << std::endl;
 	Operations.PrintMatrixA();
 	std::cout << "A * Scalar:" << std::endl;
-	Operations.InverseA().PrintMatrix();
+	Operations.MultiplyAByScalar().PrintMatrix();
 	std::cout << "\n" << std::endl;
 
 	// Operation 5)
@@ -64,8 +64,18 @@ int main()
 	Operations.PrintMatrixA();
 	std::cout << "Matrix B:" << std::endl;
 	Operations.PrintMatrixB();
-	std::cout << "A * Scalar:" << std::endl;
-	Operations.InverseA().PrintMatrix();
+	std::cout << "A + B:" << std::endl;
+	Operations.APlusB().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
+	// Operation 6)
+	std::cout << "Question 5) Difference of A - B:" << std::endl;
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "Matrix B:" << std::endl;
+	Operations.PrintMatrixB();
+	std::cout << "A + B:" << std::endl;
+	Operations.AMinusB().PrintMatrix();
 	std::cout << "\n" << std::endl;
 
 	/*
