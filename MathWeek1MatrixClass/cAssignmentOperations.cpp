@@ -26,40 +26,56 @@ Matrix4 cAssignmentOperations::TransposeA()
 
 Matrix4 cAssignmentOperations::InverseA()
 {
-	return Matrix4();
+	Matrix4 InverseOfA = GetMatrixA();
+	Matrix4::Inverse(GetMatrixA(), InverseOfA);
+	return InverseOfA;
 }
 
 Matrix4 cAssignmentOperations::MultiplyAByScalar()
 {
-	return Matrix4();
+	Matrix4 ScalarMultMatrix = GetMatrixA();
+	Matrix4::Multiply(ScalarValue, GetMatrixA(), ScalarMultMatrix);
+	return ScalarMultMatrix;
 }
 
 Matrix4 cAssignmentOperations::APlusB()
 {
-	return Matrix4();
+	Matrix4 Result;
+	Matrix4::Add(GetMatrixA(), GetMatrixB(), Result);
+	return Result;
 }
 
 Matrix4 cAssignmentOperations::AMinusB()
 {
-	return Matrix4();
+	Matrix4 Result;
+	Matrix4::Subtract(GetMatrixA(), GetMatrixB(), Result);
+	return Result;
 }
 
 Matrix4 cAssignmentOperations::AMultiplyByB()
 {
-	return Matrix4();
+	Matrix4 Result;
+	Matrix4::Multiply(GetMatrixA(), GetMatrixB(), Result);
+	return Result;
 }
 
 Matrix4 cAssignmentOperations::BMultiplyByA()
 {
-	return Matrix4();
+	Matrix4 Result;
+	Matrix4::Multiply(GetMatrixB(), GetMatrixA(), Result);
+	return Result;
 }
 
 Matrix4 cAssignmentOperations::IdentityMatrixA()
 {
-	return Matrix4();
+	Matrix4 Result = GetMatrixA();
+	Matrix4::Identity(Result);
+	return Result;
 }
 
 Matrix4 cAssignmentOperations::IdentityMatrixB()
 {
-	return Matrix4();
+	Matrix4 Result = GetMatrixB();
+	Matrix4::Identity(Result);
+	return Result;
 }
