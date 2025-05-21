@@ -56,7 +56,7 @@ public:
         Matrix4& _rResult);
 
     // Helper Functions
-    void PrintMatrix();
+    void PrintMatrix() const;
     void RandomizeMatrix();
     int RandomInt();
 };

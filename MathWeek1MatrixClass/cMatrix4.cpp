@@ -265,7 +265,7 @@ Vector4& Matrix4::Translation(float _fTranslateX,
 
 
 // Helper Functions
-void Matrix4::PrintMatrix() {
+void Matrix4::PrintMatrix() const {
 	for (int xIndex = 1; xIndex < 5; ++xIndex) {
 		for (int yIndex = 1; yIndex < 5; ++yIndex) {
 			float value = GetElement(xIndex, yIndex);
