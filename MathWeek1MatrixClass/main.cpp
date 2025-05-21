@@ -29,14 +29,16 @@ int main()
 	cAssignmentOperations Operations;
 
 	// Operation 1)
+	std::cout << "Question 1) Determinant of A:" << std::endl;
 	std::cout << "Matrix A:" << std::endl;
 	Operations.PrintMatrixA();
 	std::cout << "Determinant of A: " << Operations.DeterminantA() << "\n" << std::endl;
 
 	// Operation 2)
+	std::cout << "Question 2) Transpose of A:" << std::endl;
 	std::cout << "Matrix A:" << std::endl;
 	Operations.PrintMatrixA();
-	std::cout << "\nDeterminant of A: " << Operations.DeterminantA() << std::endl;
+	std::cout << "Transpose of A:" << std::endl;
 	Operations.TransposeA().PrintMatrix();
 	std::cout << "\n" << std::endl;
 

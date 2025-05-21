@@ -15,8 +15,8 @@ Mail : [matthewbartlett@mds.ac.nz]
 class cAssignmentOperations
 {
 private:
-	static const Matrix4 MatrixA;
-	static const Matrix4 MatrixB;
+	const Matrix4 MatrixA;
+	const Matrix4 MatrixB;
 public:
 	// Assignment tasks
 	float DeterminantA();
@@ -34,6 +34,6 @@ public:
 	void PrintMatrixA() const { MatrixA.PrintMatrix(); }
 
 	// Getters
-	static Matrix4 GetMatrixA() { return MatrixA; }
-	static Matrix4 GetMatrixB() { return MatrixB; }
+	const Matrix4 GetMatrixA() { return MatrixA; }
+	const Matrix4 GetMatrixB() { return MatrixB; }
 };

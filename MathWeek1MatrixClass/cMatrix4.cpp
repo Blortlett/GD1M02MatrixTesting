@@ -271,9 +271,9 @@ void Matrix4::PrintMatrix() const {
 			float value = GetElement(xIndex, yIndex);
 			cout << (value < 0 ? " " : "  ") << value;
 		}
-		cout << endl;
+		cout  << endl;
 	}
-		cout << "\n" << endl;
+		cout << "" << endl;
 }
 
 void Matrix4::RandomizeMatrix() {
