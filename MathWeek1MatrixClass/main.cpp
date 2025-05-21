@@ -69,13 +69,49 @@ int main()
 	std::cout << "\n" << std::endl;
 
 	// Operation 6)
-	std::cout << "Question 5) Difference of A - B:" << std::endl;
+	std::cout << "Question 6) Difference of A - B:" << std::endl;
 	std::cout << "Matrix A:" << std::endl;
 	Operations.PrintMatrixA();
 	std::cout << "Matrix B:" << std::endl;
 	Operations.PrintMatrixB();
-	std::cout << "A + B:" << std::endl;
+	std::cout << "A - B:" << std::endl;
 	Operations.AMinusB().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
+	// Operation 7)
+	std::cout << "Question 7) Product of A * B:" << std::endl;
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "Matrix B:" << std::endl;
+	Operations.PrintMatrixB();
+	std::cout << "A * B:" << std::endl;
+	Operations.AMultiplyByB().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
+	// Operation 8)
+	std::cout << "Question 8) Product of B * A:" << std::endl;
+	std::cout << "Matrix B:" << std::endl;
+	Operations.PrintMatrixB();
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "B * A:" << std::endl;
+	Operations.BMultiplyByA().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
+	// Operation 9)
+	std::cout << "Question 9a) Identity of A:" << std::endl;
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "A Identity:" << std::endl;
+	Operations.IdentityMatrixA().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
+	// Operation 10)
+	std::cout << "Question 9b) Identity of B:" << std::endl;
+	std::cout << "Matrix B:" << std::endl;
+	Operations.PrintMatrixB();
+	std::cout << "B Identity:" << std::endl;
+	Operations.IdentityMatrixB().PrintMatrix();
 	std::cout << "\n" << std::endl;
 
 	/*
