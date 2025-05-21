@@ -42,6 +42,22 @@ int main()
 	Operations.TransposeA().PrintMatrix();
 	std::cout << "\n" << std::endl;
 
+	// Operation 3)
+	std::cout << "Question 3) Inverse of A:" << std::endl;
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "Inverse of A:" << std::endl;
+	Operations.InverseA().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
+	// Operation 4)
+	std::cout << "Question 4) Multiply A by scalar Value:" << std::endl;
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "A * Scalar:" << std::endl;
+	Operations.InverseA().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
 	/*
 	SeedRandom();
 	int iTestsPerformed = 0;

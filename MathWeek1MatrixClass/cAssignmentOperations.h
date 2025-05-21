@@ -18,6 +18,7 @@ private:
 	const Matrix4 MatrixA;
 	const Matrix4 MatrixB;
 public:
+	float ScalarValue;
 	// Assignment tasks
 	float DeterminantA();
 	Matrix4 TransposeA();
