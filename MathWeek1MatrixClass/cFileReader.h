@@ -4,21 +4,29 @@ Media Design School
 Auckland
 New Zealand
 (c) [2025] Media Design School
-File Name : [cVector4.h]
-Description : [This class lets me store, use and print to screen vector4s]
+File Name : [cFileReader.h]
+Description : [Reads input file and passes to the matrix calculator]
 Author : [Matthew Bartlett, Oliver Noone-Jones]
 Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
+
+#include <string>
+#include "cMatrix4.h"
+
 #pragma once
-#include <iostream>
-
-class Vector4
+class cFileReader
 {
-public:
-	float x, y, z, w;
-	Vector4() : x(0), y(0), z(0), w(0) {}
+private:
+	const std::string mFileAddress = "Input/Input.txt";
 
-	void Display() const {
-		std::cout << "Vector4(" << x << ", " << y << ", " << z << ", " << w << ")\n" << std::endl;
-	}
+	Matrix4 mMatrix1;
+	Matrix4 mMatrix2;
+	float mValue;
+
+	void LoadFile();
+
+public:
+	cFileReader();
+
 };
+

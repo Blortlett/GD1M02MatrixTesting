@@ -7,7 +7,7 @@ New Zealand
 File Name : [cAssignmentOperations.h]
 Description : [This class is what will trigger matrix operations one by one as per assignment brief]
 Author : [Matthew Bartlett, Oliver Noone-Jones]
-Mail : [matthewbartlett@mds.ac.nz]
+Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 #pragma once
 #include "cMatrix4.h"

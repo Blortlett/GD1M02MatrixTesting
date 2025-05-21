@@ -7,11 +7,14 @@ New Zealand
 File Name : [main.cpp]
 Description : [App starts here]
 Author : [Matthew Bartlett, Oliver Noone-Jones]
-Mail : [matthewbartlett@mds.ac.nz]
+Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 
 // 4x4 Matrix class
 #include "cAssignmentOperations.h"
+
+#include "cFileReader.h"
+
 /*
 // Test Class
 #include "cTest.h"
@@ -27,6 +30,8 @@ Mail : [matthewbartlett@mds.ac.nz]
 int main()
 {
 	cAssignmentOperations Operations;
+
+	cFileReader FileReader;
 
 	// Operation 1)
 	std::cout << "Question 1) Determinant of A:" << std::endl;
@@ -123,6 +128,8 @@ int main()
 
 	return 0;
 	*/
+
+	return 0;
 }
 
 /*

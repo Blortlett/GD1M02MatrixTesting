@@ -7,7 +7,7 @@ New Zealand
 File Name : [cMatrix4.h]
 Description : [This class lets me store, use and perform operations on 4x4 Matrices]
 Author : [Matthew Bartlett, Oliver Noone-Jones]
-Mail : [matthewbartlett@mds.ac.nz]
+Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 #pragma once
 #include <iostream>

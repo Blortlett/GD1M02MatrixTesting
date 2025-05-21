@@ -7,7 +7,7 @@ New Zealand
 File Name : [cTest.cpp]
 Description : [This class is allows me to test all functions and see what works correctly]
 Author : [Matthew Bartlett, Oliver Noone-Jones]
-Mail : [matthewbartlett@mds.ac.nz]
+Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 #pragma once
 #include "cTest.h"
