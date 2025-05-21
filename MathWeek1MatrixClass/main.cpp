@@ -58,6 +58,16 @@ int main()
 	Operations.InverseA().PrintMatrix();
 	std::cout << "\n" << std::endl;
 
+	// Operation 5)
+	std::cout << "Question 5) Sum of A + B:" << std::endl;
+	std::cout << "Matrix A:" << std::endl;
+	Operations.PrintMatrixA();
+	std::cout << "Matrix B:" << std::endl;
+	Operations.PrintMatrixB();
+	std::cout << "A * Scalar:" << std::endl;
+	Operations.InverseA().PrintMatrix();
+	std::cout << "\n" << std::endl;
+
 	/*
 	SeedRandom();
 	int iTestsPerformed = 0;

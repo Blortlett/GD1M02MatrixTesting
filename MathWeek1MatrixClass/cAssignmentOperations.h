@@ -33,6 +33,7 @@ public:
 
 	// Printers
 	void PrintMatrixA() const { MatrixA.PrintMatrix(); }
+	void PrintMatrixB() const { MatrixB.PrintMatrix(); }
 
 	// Getters
 	const Matrix4 GetMatrixA() { return MatrixA; }
