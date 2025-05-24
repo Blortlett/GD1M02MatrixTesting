@@ -130,14 +130,12 @@
     <ClInclude Include="cAssignmentOperations.h" />
     <ClInclude Include="cFileReader.h" />
     <ClInclude Include="cMatrix4.h" />
-    <ClInclude Include="cTest.h" />
     <ClInclude Include="cVector4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cAssignmentOperations.cpp" />
     <ClCompile Include="cFileReader.cpp" />
     <ClCompile Include="cMatrix4.cpp" />
-    <ClCompile Include="cTest.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

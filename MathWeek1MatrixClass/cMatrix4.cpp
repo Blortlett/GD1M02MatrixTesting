@@ -214,8 +214,6 @@ Vector4& Matrix4::ScaleUniform(float _fScale,
 	Identity(_rResultMat);
 
 	// Set the scaling factors on the diagonal
-	// Since SetElement uses 1-based indexing (subtracts 1 internally),
-	// we use 1,2,3,4 as indices
 	_rResultMat.SetElement(1, 1, _fScale);  // x scale
 	_rResultMat.SetElement(2, 2, _fScale);  // y scale
 	_rResultMat.SetElement(3, 3, _fScale);  // z scale
@@ -234,7 +232,6 @@ Vector4& Matrix4::ScaleNonUniform(float _fScaleX,
 	Identity(_rResultMat);
 
 	// Set the individual scaling factors on the diagonal
-	// Using 1-based indexing as per SetElement's convention
 	_rResultMat.SetElement(1, 1, _fScaleX);  // x scale
 	_rResultMat.SetElement(2, 2, _fScaleY);  // y scale
 	_rResultMat.SetElement(3, 3, _fScaleZ);  // z scale
@@ -253,7 +250,6 @@ Vector4& Matrix4::Translation(float _fTranslateX,
 	Identity(_rResult);
 
 	// Set the translation values in the last column
-	// Using 1-based indexing as per SetElement's convention
 	_rResult.SetElement(1, 4, _fTranslateX);  // x translation
 	_rResult.SetElement(2, 4, _fTranslateY);  // y translation
 	_rResult.SetElement(3, 4, _fTranslateZ);  // z translation
@@ -285,7 +281,7 @@ void Matrix4::LoadMatrix(const std::vector<std::string>& Tokens)
 		return;
 	}
 
-	// Assign tokens to matrix in row-major order
+	// Assign tokens to matrix
 	size_t tokenIndex = 0;
 	for (int xIndex = 1; xIndex < 5; ++xIndex) {
 		for (int yIndex = 1; yIndex < 5; ++yIndex) {
