@@ -17,8 +17,11 @@ class cAssignmentOperations
 private:
 	const Matrix4 MatrixA;
 	const Matrix4 MatrixB;
-public:
 	float ScalarValue;
+public:
+	cAssignmentOperations(Matrix4 _MatrixA, Matrix4 _MatrixB, int _ScalarValue);
+	~cAssignmentOperations() {}
+
 	// Assignment tasks
 	float DeterminantA();
 	Matrix4 TransposeA();

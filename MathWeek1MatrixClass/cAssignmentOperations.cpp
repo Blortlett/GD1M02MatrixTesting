@@ -11,6 +11,13 @@ Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 #include "cAssignmentOperations.h"
 
+cAssignmentOperations::cAssignmentOperations(Matrix4 _MatrixA, Matrix4 _MatrixB, int _ScalarValue)
+	: MatrixA(_MatrixA)
+	, MatrixB(_MatrixB)
+	, ScalarValue(_ScalarValue)
+{
+}
+
 float cAssignmentOperations::DeterminantA()
 {
 	float Determinant = Matrix4::Determinant(MatrixA);

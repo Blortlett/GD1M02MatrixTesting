@@ -11,6 +11,8 @@ Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 #pragma once
 #include <iostream>
+#include <vector>
+#include <string>
 #include "cVector4.h"
 using namespace std;
 
@@ -57,6 +59,7 @@ public:
 
     // Helper Functions
     void PrintMatrix() const;
+    void LoadMatrix(const std::vector<std::string>& Tokens);
     void RandomizeMatrix();
     int RandomInt();
 };

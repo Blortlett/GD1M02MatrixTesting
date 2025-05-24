@@ -115,12 +115,12 @@ void Matrix4::Multiply(const Matrix4& _rA, const Matrix4& _rB, Matrix4& _rResult
 	for (int i = 1; i < 5; ++i) {
 		// Loop through each column of _rB
 		for (int j = 1; j < 5; ++j) {
-			_rResult.SetElement(i, j, 0.0f); // Make sure result starts off as 0
-
+			float sum = 0.0f; // Initialize sum for dot product
 			// Perform the dot product of row i from _rA with column j from _rB
 			for (int k = 1; k < 5; ++k) {
-				_rResult.SetElement(i, j, (_rA.GetElement(i, k) * _rB.GetElement(k,j)));
+				sum += _rA.GetElement(i, k) * _rB.GetElement(k, j);
 			}
+			_rResult.SetElement(i, j, sum);
 		}
 	}
 }
@@ -274,6 +274,34 @@ void Matrix4::PrintMatrix() const {
 		cout  << endl;
 	}
 		cout << "" << endl;
+}
+
+void Matrix4::LoadMatrix(const std::vector<std::string>& Tokens)
+{
+	// Check if we have enough tokens (4x4 matrix needs 16 elements)
+	if (Tokens.size() < 16) {
+		std::cerr << "Error: Not enough tokens to fill a 4x4 matrix. Found "
+			<< Tokens.size() << " tokens, need 16." << std::endl;
+		return;
+	}
+
+	// Assign tokens to matrix in row-major order
+	size_t tokenIndex = 0;
+	for (int xIndex = 1; xIndex < 5; ++xIndex) {
+		for (int yIndex = 1; yIndex < 5; ++yIndex) {
+			try {
+				float value = std::stof(Tokens[tokenIndex]);
+				SetElement(xIndex, yIndex, value);
+				++tokenIndex;
+			}
+			catch (const std::exception& e) {
+				std::cerr << "Error: Invalid number format in token '"
+					<< Tokens[tokenIndex] << "' at position "
+					<< tokenIndex + 1 << "." << std::endl;
+				return;
+			}
+		}
+	}
 }
 
 void Matrix4::RandomizeMatrix() {

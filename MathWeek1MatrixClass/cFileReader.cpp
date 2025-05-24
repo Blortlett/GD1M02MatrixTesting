@@ -15,111 +15,101 @@ Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 #include <fstream>
 #include <iostream>
 
-void cFileReader::LoadFile()
+void cFileReader::LoadFile(Matrix4& Matrix1, Matrix4& Matrix2, int& scalar)
 {
+	// Open file
 	std::fstream File;
-	File.open(mFileAddress);	//Opens file
-
+	File.open(mFileAddress);
+	// check its open
 	if (!File.is_open())	//If file not found
 	{
+		std::cout << "Error: File not found." << std::endl;
 		return;
-	}
+	} 
 
+	// Line reading variables
 	std::string Line;
-	int LineNum = 0;
+	std::vector<std::string> Tokens;
+	std::string Delimiter = " ";
+	int lineCount = 0;
 
-	int Index = 0;
-	int SpaceIndexs[3];
-
-	//Goes down the file line by line until end of file is reached
-	for (int j = 0; j < 4; j++)	//For every row in matrix
+	// Read only the first 4 lines - Load Matrix 1
+	while (std::getline(File, Line) && lineCount < 4) 
 	{
-		std::getline(File, Line);
 
-		//
-		//Retrieval of data
-		//
-		for (int i = 0; i < Line.length(); i++)	//For each char in line
+		// Tokenize the current line
+		Tokenize(Line, Tokens, Delimiter);
+
+		// Check if we have enough tokens for a 4x4 matrix
+		if (Tokens.size() >= 16) 
 		{
-			switch (Line[i])
-			{
-			case ' ':
-				SpaceIndexs[Index] = i;
-				Index++;
-				break;
-			default:
-				break;
-			}
+			Matrix4 matrix;
+			Matrix1.LoadMatrix(Tokens); // Load tokens into matrix
 		}
-		Index = 0;
-		LineNum++;
+		// Else: Repeat until Tokens.size() = 16
 
-		//
-		//Sets elements in matrix
-		//
-		mMatrix1.SetElement(0, j, std::stof(Line.substr(0, SpaceIndexs[0] + 1)));
-		mMatrix1.SetElement(1, j, std::stof(Line.substr(SpaceIndexs[0] + 1, SpaceIndexs[1] - SpaceIndexs[0] + 1)));
-		mMatrix1.SetElement(2, j, std::stof(Line.substr(SpaceIndexs[1] + 1, SpaceIndexs[2] - SpaceIndexs[1] + 1)));
-		mMatrix1.SetElement(3, j, std::stof(Line.substr(SpaceIndexs[2] + 1)));
-
-		//std::cout << mMatrix1.GetElement(0, j) << std::endl;
-		//std::cout << mMatrix1.GetElement(1, j) << std::endl;
-		//std::cout << mMatrix1.GetElement(2, j) << std::endl;
-		//std::cout << mMatrix1.GetElement(3, j) << std::endl;
-
+		lineCount++;
 	}
 
-	std::getline(File, Line);
 
-	//Goes down the file line by line until end of file is reached
-	for (int j = 0; j < 4; j++)	//For every row in matrix
+	// Reset lineCount
+	lineCount = 0;
+	//clear the tokens vector
+	if (Tokens.size() > 0)
 	{
-		std::getline(File, Line);
-
-		//
-		//Retrieval of data
-		//
-		for (int i = 0; i < Line.length(); i++)	//For each char in line
-		{
-			switch (Line[i])
-			{
-			case ' ':
-				SpaceIndexs[Index] = i;
-				Index++;
-				break;
-			default:
-				break;
-			}
-		}
-		Index = 0;
-		LineNum++;
-
-		//
-		//Sets elements in matrix
-		//
-		mMatrix2.SetElement(0, j, std::stof(Line.substr(0, SpaceIndexs[0] + 1)));
-		mMatrix2.SetElement(1, j, std::stof(Line.substr(SpaceIndexs[0] + 1, SpaceIndexs[1] - SpaceIndexs[0] + 1)));
-		mMatrix2.SetElement(2, j, std::stof(Line.substr(SpaceIndexs[1] + 1, SpaceIndexs[2] - SpaceIndexs[1] + 1)));
-		mMatrix2.SetElement(3, j, std::stof(Line.substr(SpaceIndexs[2] + 1)));
-
-		//std::cout << mMatrix1.GetElement(0, j) << std::endl;
-		//std::cout << mMatrix1.GetElement(1, j) << std::endl;
-		//std::cout << mMatrix1.GetElement(2, j) << std::endl;
-		//std::cout << mMatrix1.GetElement(3, j) << std::endl;
-
+		Tokens.erase(Tokens.begin(), Tokens.end());
 	}
 
+
+	// Read next 5 lines - Load matrix 2
+	while (std::getline(File, Line) && lineCount < 5) 
+	{
+		// Tokenize the current line
+		Tokenize(Line, Tokens, Delimiter);
+
+		// Check if we have enough tokens for a 4x4 matrix
+		if (Tokens.size() >= 16) 
+		{
+			Matrix4 matrix;
+			Matrix2.LoadMatrix(Tokens); // Load tokens into matrix
+		}
+		// Else: Repeat until Tokens.size() = 16
+
+		lineCount++;
+	}
+
+	// Skip a line then load scalar value
 	std::getline(File, Line);
 	std::getline(File, Line);
+	scalar = std::stoi(Line);
 
-	mValue = std::stof(Line);
-
-	std::cout << mValue << std::endl;
 
 	File.close();	//Closes file
 }
 
+void cFileReader::Tokenize(const string& sSource, std::vector<string>& vTokens, const string& sDelimiter)
+{
+	// Skip delimiters at beginning.
+	string::size_type lastPos = sSource.find_first_not_of(sDelimiter, 0);
+
+	// Find first "non-delimiter".
+	string::size_type pos = sSource.find_first_of(sDelimiter, lastPos);
+
+	while (string::npos != pos || string::npos != lastPos)
+	{
+		// Found a token, add it to the vector.
+		vTokens.push_back(sSource.substr(lastPos, pos - lastPos));
+
+		// Skip delimiters.  Note the "not_of"
+		lastPos = sSource.find_first_not_of(sDelimiter, pos);
+
+		// Find next "non-delimiter"
+		pos = sSource.find_first_of(sDelimiter, lastPos);
+	}
+}
+
+
 cFileReader::cFileReader()
 {
-	LoadFile();
+	
 }

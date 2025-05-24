@@ -10,28 +10,34 @@ Author : [Matthew Bartlett, Oliver Noone-Jones]
 Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 **************************************************************************/
 
-// 4x4 Matrix class
 #include "cAssignmentOperations.h"
-
 #include "cFileReader.h"
-
-/*
-// Test Class
-#include "cTest.h"
-// Random number stuff
-#include <cstdlib>
-#include <ctime>
-#include <initializer_list>
-*/
 
 
 //void SeedRandom();
 
 int main()
 {
-	cAssignmentOperations Operations;
+	Matrix4 Matrix1;
+	Matrix4 Matrix2;
+	int scalar;
 
 	cFileReader FileReader;
+	FileReader.LoadFile(Matrix1, Matrix2, scalar);
+
+	// Check matrices if needed
+	std::cout << "Loaded values from text file: " << std::endl;
+	std::cout << "Matrix1:" << std::endl;
+	Matrix1.PrintMatrix();
+	std::cout << "Matrix2:" << std::endl;
+	Matrix2.PrintMatrix();
+	std::cout << "Scalar value: " << scalar << "\n" << std::endl;
+
+	std::cout << "------------------------------------------\n" << std::endl;
+	std::cout << "Questions:\n" << std::endl;
+
+	// Run Calculator
+	cAssignmentOperations Operations(Matrix1, Matrix2, scalar);
 
 	// Operation 1)
 	std::cout << "Question 1) Determinant of A:" << std::endl;
@@ -119,21 +125,6 @@ int main()
 	Operations.IdentityMatrixB().PrintMatrix();
 	std::cout << "\n" << std::endl;
 
-	/*
-	SeedRandom();
-	int iTestsPerformed = 0;
-	int iTestsPassed = 0;
-
-	RunAllTestScenarios();
-
-	return 0;
-	*/
 
 	return 0;
 }
-
-/*
-void SeedRandom() {
-	std::srand(std::time({}));
-}
-*/
