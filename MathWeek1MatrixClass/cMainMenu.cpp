@@ -42,25 +42,27 @@ void cMainMenu::Menu()
     }
 
     if (userInput.length() > 1) {
-        SelectMultipleTransformations(mMatrix1, userInput);
+        SelectMultipleTransformations(userInput); // Creates its own tempMatrix inside this function
     }
     else {
+        Matrix4 tempMatrix; // Need to pass something in
+        Matrix4::Identity(tempMatrix);
         int userSelection = userInput[0] - '0';
         switch (userSelection) {
         case 1:
-            PerformScaleUniform(mMatrix1);
+            PerformScaleUniform(tempMatrix);
             break;
         case 2:
-            PerformScaleNonuniform(mMatrix1);
+            PerformScaleNonuniform(tempMatrix);
             break;
         case 3:
-            PerformTranslate(mMatrix1);
+            PerformTranslate(tempMatrix);
             break;
         case 4:
-            PerformRotate(mMatrix1);
+            PerformRotate(tempMatrix);
             break;
         case 5:
-            PerformProject(mMatrix1);
+            PerformProject(tempMatrix);
             break;
         default:
             cout << "I didn't quite catch that, try again..." << endl;
@@ -69,9 +71,10 @@ void cMainMenu::Menu()
     }
 }
 
-void cMainMenu::SelectMultipleTransformations(Matrix4& _rMatrix, const string& _UserInput)
+void cMainMenu::SelectMultipleTransformations(const string& _UserInput)
 {
-    Matrix4 result = _rMatrix;
+    Matrix4 result;
+    Matrix4::Identity(result);
     for (int i = _UserInput.length() - 1; i >= 0; --i) {
         int selection = _UserInput[i] - '0';
         Matrix4 temp;
@@ -104,9 +107,11 @@ void cMainMenu::SelectMultipleTransformations(Matrix4& _rMatrix, const string& _
             cout << "Invalid selection '" << selection << "' ignored." << endl;
             continue;
         }
+        cout << "Temp Matrix for selection " << selection << ":\n";
+        temp.PrintMatrix();
         Matrix4::Multiply(temp, result, result);
     }
-    cout << "Resulting Combined Transformation Matrix:\n";
+    cout << "\nResulting Combined Transformation Matrix:\n";
     result.PrintMatrix();
 }
 

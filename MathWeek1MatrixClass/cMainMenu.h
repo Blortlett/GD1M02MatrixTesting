@@ -17,11 +17,6 @@ Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 
 class cMainMenu {
 private:
-    Matrix4 mMatrix1;
-    Matrix4 mMatrix2;
-    int mScalar;
-    cFileReader mFileReader;
-
     bool mbRunning = true;
 
     // Helper functions for menu operations
@@ -33,7 +28,7 @@ private:
     void PerformProject(Matrix4& _rMatrix);
 
     // MultipleTransformMethod
-    void SelectMultipleTransformations(Matrix4& _rMatrix, const string& _UserInput);
+    void SelectMultipleTransformations(const string& _UserInput);
 
     // Helper functions
     float GetFloatInput(const std::string& _prompt);
