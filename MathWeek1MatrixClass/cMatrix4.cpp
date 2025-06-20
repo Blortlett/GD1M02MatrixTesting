@@ -35,6 +35,7 @@ void Matrix4::Identity(Matrix4& _rResult)
 }
 void Matrix4::Zero(Matrix4& _rResult)
 {
+	// Zero all values in matrix
 	for (int xIndex = 1; xIndex < 5; ++xIndex) {
 		for (int yIndex = 1; yIndex < 5; ++yIndex) {
 
@@ -255,6 +256,79 @@ Vector4& Matrix4::Translation(float _fTranslateX,
 	_rResult.SetElement(3, 4, _fTranslateZ);  // z translation
 	_rResult.SetElement(4, 4, 1.0f);         // w remains 1
 
+	// Return the input vector unchanged
+	return const_cast<Vector4&>(_rVec);
+}
+
+Vector4& Matrix4::RotationXYZ(float _fAngleX,
+	float _fAngleY,
+	float _fAngleZ,
+	const Vector4& _rVec,
+	Matrix4& _rResult)
+{
+	// Initialize result matrix
+	Identity(_rResult);
+
+	// Compute sine and cosine for each angle
+	float cx = cos(_fAngleX);
+	float sx = sin(_fAngleX);
+	float cy = cos(_fAngleY);
+	float sy = sin(_fAngleY);
+	float cz = cos(_fAngleZ);
+	float sz = sin(_fAngleZ);
+
+	// Create rotation matrices for X, Y, Z axes
+	Matrix4 rotX, rotY, rotZ;
+	Identity(rotX);
+	Identity(rotY);
+	Identity(rotZ);
+
+	// Rotation around X-axis
+	rotX.SetElement(2, 2, cx);
+	rotX.SetElement(2, 3, -sx);
+	rotX.SetElement(3, 2, sx);
+	rotX.SetElement(3, 3, cx);
+
+	// Rotation around Y-axis
+	rotY.SetElement(1, 1, cy);
+	rotY.SetElement(1, 3, sy);
+	rotY.SetElement(3, 1, -sy);
+	rotY.SetElement(3, 3, cy);
+
+	// Rotation around Z-axis
+	rotZ.SetElement(1, 1, cz);
+	rotZ.SetElement(1, 2, -sz);
+	rotZ.SetElement(2, 1, sz);
+	rotZ.SetElement(2, 2, cz);
+
+	// Combine rotations: R = Rz * Ry * Rx
+	Matrix4 temp;
+	Multiply(rotY, rotX, temp);
+	Multiply(rotZ, temp, _rResult);
+
+	// Return the input vector unchanged
+	return const_cast<Vector4&>(_rVec);
+}
+
+Vector4& Matrix4::ProjectionXYZ(bool _bProjX,
+	bool _bProjY,
+	bool _bProjZ,
+	const Vector4& _rVec,
+	Matrix4& _rResult)
+{
+	// Initialize result matrix to zero
+	Zero(_rResult);
+	// Set diagonal elements based on projection flags
+	if (_bProjX) {
+		_rResult.SetElement(1, 1, 1.0f); // Keep X component
+	}
+	if (_bProjY) {
+		_rResult.SetElement(2, 2, 1.0f); // Keep Y component
+	}
+	if (_bProjZ) {
+		_rResult.SetElement(3, 3, 1.0f); // Keep Z component
+	}
+	_rResult.SetElement(4, 4, 1.0f); // Preserve W component
 	// Return the input vector unchanged
 	return const_cast<Vector4&>(_rVec);
 }

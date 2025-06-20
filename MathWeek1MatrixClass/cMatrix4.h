@@ -56,6 +56,16 @@ public:
         float _fTranslateZ,
         const Vector4& _rVec,
         Matrix4& _rResult);
+    static Vector4& RotationXYZ(float _fAngleX,
+        float _fAngleY,
+        float _fAngleZ,
+        const Vector4& _rVec,
+        Matrix4& _rResult);
+    static Vector4& ProjectionXYZ(bool _bProjX,
+        bool _bProjY,
+        bool _bProjZ,
+        const Vector4& _rVec,
+        Matrix4& _rResult);
 
     // Helper Functions
     void PrintMatrix() const;
