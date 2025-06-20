@@ -13,14 +13,8 @@ Mail : [matthewbartlett@mds.ac.nz, Oliver.NooneJones@mds.ac.nz]
 #include <iostream>
 #include <limits>
 
-cMainMenu::cMainMenu() {
-    // Load matrices and scalar from file
-    mFileReader.LoadFile(mMatrix1, mMatrix2, mScalar);
-    std::cout << "Loaded Matrix1:\n";
-    mMatrix1.PrintMatrix();
-    std::cout << "Loaded Matrix2:\n";
-    mMatrix2.PrintMatrix();
-    std::cout << "Loaded Scalar: " << mScalar << "\n\n";
+cMainMenu::cMainMenu() 
+{
 }
 
 void cMainMenu::Menu()
@@ -36,39 +30,85 @@ void cMainMenu::Menu()
     cout << " 9) Quit Program" << endl;
 
     // prompt user input
-    int userSelection;
+    string userInput;
     cout << "Enter selection: ";
-    cin >> userSelection;
+    cin >> userInput;
 
 
 
-    switch (userSelection)
-    {
-    case 1: // Scaling Operations
-        PerformScaleUniform(mMatrix1);
-        break;
-    case 2: // Scaling Operations
-        PerformScaleNonuniform(mMatrix1);
-        break;
-    case 3: // Translation Operations
-        PerformTranslate(mMatrix1);
-        break;
-    case 4: // Rotation Operations
-        PerformRotate(mMatrix1);
-        break;
-    case 5: // Projection Operations
-        PerformProject(mMatrix1);
-        break;
-    case 9: // Quit Program
+    if (userInput == "9") {
         mbRunning = false;
-        break;
-    default:
-        cout << "I didn't quite catch that, try again..." << endl;
-        break;
+        return;
     }
 
+    if (userInput.length() > 1) {
+        SelectMultipleTransformations(mMatrix1, userInput);
+    }
+    else {
+        int userSelection = userInput[0] - '0';
+        switch (userSelection) {
+        case 1:
+            PerformScaleUniform(mMatrix1);
+            break;
+        case 2:
+            PerformScaleNonuniform(mMatrix1);
+            break;
+        case 3:
+            PerformTranslate(mMatrix1);
+            break;
+        case 4:
+            PerformRotate(mMatrix1);
+            break;
+        case 5:
+            PerformProject(mMatrix1);
+            break;
+        default:
+            cout << "I didn't quite catch that, try again..." << endl;
+            break;
+        }
+    }
 }
 
+void cMainMenu::SelectMultipleTransformations(Matrix4& _rMatrix, const string& _UserInput)
+{
+    Matrix4 result = _rMatrix;
+    for (int i = _UserInput.length() - 1; i >= 0; --i) {
+        int selection = _UserInput[i] - '0';
+        Matrix4 temp;
+        Vector4 vec;
+        switch (selection) {
+        case 1:
+            Matrix4::ScaleUniform(GetFloatInput("Enter uniform scale factor: "), vec, temp);
+            break;
+        case 2:
+            Matrix4::ScaleNonUniform(GetFloatInput("Enter X scale factor: "),
+                GetFloatInput("Enter Y scale factor: "),
+                GetFloatInput("Enter Z scale factor: "), vec, temp);
+            break;
+        case 3:
+            Matrix4::Translation(GetFloatInput("Enter X translation: "),
+                GetFloatInput("Enter Y translation: "),
+                GetFloatInput("Enter Z translation: "), vec, temp);
+            break;
+        case 4:
+            Matrix4::RotationXYZ(GetFloatInput("Enter X rotation angle (in radians): "),
+                GetFloatInput("Enter Y rotation angle (in radians): "),
+                GetFloatInput("Enter Z rotation angle (in radians): "), vec, temp);
+            break;
+        case 5:
+            Matrix4::ProjectionXYZ(GetBoolInput("Project onto X-axis? (y/n): "),
+                GetBoolInput("Project onto Y-axis? (y/n): "),
+                GetBoolInput("Project onto Z-axis? (y/n): "), vec, temp);
+            break;
+        default:
+            cout << "Invalid selection '" << selection << "' ignored." << endl;
+            continue;
+        }
+        Matrix4::Multiply(temp, result, result);
+    }
+    cout << "Resulting Combined Transformation Matrix:\n";
+    result.PrintMatrix();
+}
 
 void cMainMenu::UpdateMenu() {
     while (mbRunning)
@@ -84,6 +124,7 @@ void cMainMenu::PerformScaleUniform(Matrix4& _rMatrix) {
     Matrix4::ScaleUniform(scale, vec, result);
     std::cout << "Resulting Uniform Scale Matrix:\n";
     result.PrintMatrix();
+    _rMatrix = result; // Update the input matrix with the result
 }
 
 void cMainMenu::PerformScaleNonuniform(Matrix4& _rMatrix) {
@@ -95,6 +136,7 @@ void cMainMenu::PerformScaleNonuniform(Matrix4& _rMatrix) {
     Matrix4::ScaleNonUniform(scaleX, scaleY, scaleZ, vec, result);
     std::cout << "Resulting Non-Uniform Scale Matrix:\n";
     result.PrintMatrix();
+    _rMatrix = result; // Update the input matrix with the result
 }
 
 void cMainMenu::PerformTranslate(Matrix4& _rMatrix) {
@@ -106,6 +148,7 @@ void cMainMenu::PerformTranslate(Matrix4& _rMatrix) {
     Matrix4::Translation(transX, transY, transZ, vec, result);
     std::cout << "Resulting Translation Matrix:\n";
     result.PrintMatrix();
+    _rMatrix = result; // Update the input matrix with the result
 }
 
 void cMainMenu::PerformRotate(Matrix4& _rMatrix) {
@@ -117,6 +160,7 @@ void cMainMenu::PerformRotate(Matrix4& _rMatrix) {
     Matrix4::RotationXYZ(angleX, angleY, angleZ, vec, result);
     std::cout << "Resulting Rotation Matrix:\n";
     result.PrintMatrix();
+    _rMatrix = result; // Update the input matrix with the result
 }
 
 void cMainMenu::PerformProject(Matrix4& _rMatrix) {
@@ -128,6 +172,7 @@ void cMainMenu::PerformProject(Matrix4& _rMatrix) {
     Matrix4::ProjectionXYZ(projX, projY, projZ, vec, result);
     std::cout << "Resulting Projection Matrix:\n";
     result.PrintMatrix();
+    _rMatrix = result; // Update the input matrix with the result
 }
 
 float cMainMenu::GetFloatInput(const std::string& _prompt) {

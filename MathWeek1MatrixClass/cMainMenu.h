@@ -33,7 +33,7 @@ private:
     void PerformProject(Matrix4& _rMatrix);
 
     // MultipleTransformMethod
-    void SelectMultipleTransformations(Matrix4& _rMatrix);
+    void SelectMultipleTransformations(Matrix4& _rMatrix, const string& _UserInput);
 
     // Helper functions
     float GetFloatInput(const std::string& _prompt);
